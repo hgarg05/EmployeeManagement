@@ -10,9 +10,10 @@ import SwiftUI
 struct LoginView: View {
     
     @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
-        
+    @state var isLoginSuccess = false  
     var body: some View {
         NavigationStack{
+            if(!self.isLoginSuccess){
             VStack {
                 
                 Spacer()
@@ -51,9 +52,13 @@ struct LoginView: View {
                     }
                 )/*.navigationDestination(isPresented: self.viewModel.$isLoginSuccess, destination: EmployeeView())*/
             }
+            }else{
+                EmployeeView()
+            }
         }
         .padding(30)
         .onReceive(self.viewModel.$isLoginSuccess, perform: { _ in
+                      self.isLoginSuccess = self.viewModel.$isLoginSuccess                                       
 //            navigationDestination(for: self.viewModel.$isLoginSuccess, destination: EmployeeView())
 //            NavigationLink{
 //                EmployeeView()
